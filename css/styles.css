@@ -8,12 +8,16 @@
     padding: 10px;
     text-align: center;
     vertical-align: middle;
-    display: inline;
+    width: 100%;
 }
 
 .col-6 {
     width: 46.5%;
     padding: 10px;
+}
+
+.col {
+    width: 100%;
 }
 
 body {
