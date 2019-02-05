@@ -1,0 +1,38 @@
+.container{
+    max-width: 960px;
+    margin: auto;
+    flex: content-box;
+}
+
+.row{
+    padding: 10px;
+    text-align: center;
+    vertical-align: middle;
+    display: inline;
+}
+
+.col-6 {
+    width: 46.5%;
+    padding: 10px;
+}
+
+body {
+    margin: auto;
+    height: 900px;
+    width: 100%;
+    background: url('../img/backgroung.jpg') fixed no-repeat center;
+}
+
+section {
+    height: inherit;
+    width: auto;
+}
+
+.left-float{
+    float: left;
+}
+
+.right-float{
+    float: right;
+}
+
