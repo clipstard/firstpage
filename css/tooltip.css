@@ -1,0 +1,12 @@
+.tooltip-linkedin {
+    text-decoration:none;
+    position:relative;
+}
+.tooltip-linkedin span {
+    display:none;
+}
+.tooltip-linkedin:hover span {
+    display:block;
+    position:fixed;
+    overflow:hidden;
+}

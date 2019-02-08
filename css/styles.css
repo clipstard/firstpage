@@ -42,7 +42,6 @@ section {
     top: 45%;
     width: 100px;
     height: 101px;
-    background-color: red;
     z-index: 1000;
 }
 
@@ -53,10 +52,9 @@ section {
 .right-panel {
     position: fixed;
     right: 0;
-    top: 45%;
+    top: 32.5%;
     width: 100px;
-    height: 101px;
-    background-color: red;
+    height: auto;
     z-index: 1000;
 }
 
@@ -85,3 +83,76 @@ section {
     box-shadow: 0 0 61px -12px rgba(0, 0, 0, 0.68);
 }
 
+button {
+    border: none;
+    background: linear-gradient(to right, rgba(88,193,13,0.78) 0%,rgba(88,193,13,0.45) 18%,rgba(225,233,160,0.12) 57%,rgba(225,233,160,0.03) 68%,rgba(225,233,160,0) 71%);
+    /*color: transparent;*/
+    height: 100px;
+    width: 40px;
+}
+
+button:hover, button:focus {
+    background: transparent;
+}
+
+#toggleMenu:focus {
+    outline: none;
+}
+
+button:hover + .menu, button:focus + .menu {
+    margin-top: -115px;
+    margin-left: 50px;
+    display: block;
+    width: 158px;
+    font-size: 28px;
+    border-top:10px solid #2eb9ce;
+    border-right:10px solid #84deec;
+    border-bottom:10px solid #2eb9ce;
+    border-left:2.5px solid #2eb9ce;
+    box-shadow:0 0 100px 10px #b4b4b4;
+}
+
+td, table {
+    margin: auto;
+    text-align: center;
+}
+
+table {
+    background-color: aliceblue;
+}
+tr:nth-child(even) {
+    background: #CCC;
+}
+tr:nth-child(odd) {
+    background: #FFF;
+}
+
+.menu {
+    display: none;
+}
+.menu:focus {
+    display: none;
+}
+
+.vertical-text {
+    transform: rotate(90deg);
+    transform-origin: left top 0;
+    float:left;
+    display: block;
+    margin-left: 20px;
+    margin-top: -10px;
+    font-size: 18px;
+    color: yellowgreen;
+    font-weight: bold;
+}
+
+@keyframes appear {
+    from {
+        left: 0;
+        width: auto;
+    }
+    to {
+        left: 200px;
+        width: 500px;
+    }
+}
