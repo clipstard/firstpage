@@ -35,6 +35,7 @@ var header = {
     }
 
 };
+
 var image = {
     insert: function (id, value, type = false) {
         var elem = document.createElement('div');
@@ -56,21 +57,5 @@ var image = {
     }
 
 };
-
-// var tooltip = function (text) {
-//     let elem = document.createElement('div_' + text);
-//
-//     elem.style.border = '1px solid black';
-//
-//     window.onmousemove = function (e) {
-//         elem.style.top = e.clientY + 'px';
-//         elem.style.left = e.clientX + 'px';
-//     }
-// };
-//
-// var closTooltip = function (text) {
-//
-// };
-
 
 init();
