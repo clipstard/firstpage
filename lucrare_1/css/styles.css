@@ -25,6 +25,7 @@ body {
     height: 900px;
     width: 100%;
     background: url('../img/backgroung.jpg') fixed no-repeat center;
+    z-index: 0;
 }
 
 section {
@@ -71,6 +72,8 @@ section {
 .global {
     max-width: 1050px;
     margin: auto auto 150px auto;
+    z-index:1;
+    background-color: #fff;
 }
 
 .margin-vertical {
