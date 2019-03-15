@@ -1,3 +1,7 @@
+html{
+    scroll-behavior: smooth;
+}
+
 nav > ul > li {
     margin: 5px;
     cursor: pointer;
@@ -8,8 +12,7 @@ nav > ul > li {
 }
 
 .footer {
-    position: absolute;
-    bottom: 0;
+    flex-shrink: 0;
     text-align: center;
     width: 100%;
     color: inherit;
@@ -17,4 +20,36 @@ nav > ul > li {
 
 body {
     color: #fff !important;
+    display: flex;
+    flex-direction: column;
+    height: 6000px;
+}
+
+.body {
+    margin-top: 90px;
+    flex: 1 0 auto;
+}
+
+.border-dark {
+    color: darkred;
+    font-weight: 600;
+    font-size: 28px;
+    text-shadow: 0 0 6px white;
+    opacity: 1 !important;
+}
+
+#block11, #block12, #block13, #block21, #block22, #block23, #block31, #block32, #block33 {
+    margin-top: 100px;
+    position: fixed;
+}
+
+#blockFormular {
+    position: fixed;
+    top: 100px;
+}
+
+.has-error {
+    border: 2px solid red !important;
+    color: red !important;
+    background-color: lightgray !important;
 }
