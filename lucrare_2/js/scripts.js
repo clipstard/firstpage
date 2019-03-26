@@ -1,5 +1,4 @@
 var menuItems = ['home', 'imaginary'];
-var blocks = [11, 12, 13, 21, 22, 23, 31, 32, 33];
 
 var menuManager = {
     id: function (name) {
@@ -34,62 +33,21 @@ $(document).ready(function () {
         ($(document).scrollTop() > scrollDetector) ? scrollIndex++ : scrollIndex--;
         scrollDetector = $(document).scrollTop();
         $('body').css({backgroundColor: 'rgb(72,68,' + scrollIndex + ')'});
-        Animation.trigger(scrollIndex);
     });
 
 });
 
-
-var Animation = {
-    init: function () {
-
-    },
-    trigger: function (i) {
-        Animation.block1(i);
-        Animation.block2(i);
-        Animation.block3(i);
-        Animation.blockFormular();
-        Animation.reset();
-    },
-    block1: function (i) {
-        $('#block11').css({left: (i - 48) * (10 + i / 5)}).css({top: 120});
-        $('#block12').css({left: (i - 63) * (10 + i / 5)}).css({top: 120});
-        $('#block13').css({left: (i - 78) * (10 + i / 5)}).css({top: 120});
-    },
-    block2: function (i) {
-        $('#block21').css({left: (i - 93) * (10 + i / 5)}).css({top: 400});
-        $('#block22').css({left: (i - 108) * (10 + i / 5)}).css({top: 400});
-        $('#block23').css({left: (i - 123) * (10 + i / 5)}).css({top: 400});
-    },
-    block3: function (i) {
-        $('#block31').css({left: (i - 138) * (10 + i / 5)}).css({top: 720});
-        $('#block32').css({left: (i - 153) * (10 + i / 5)}).css({top: 720});
-        $('#block33').css({left: (i - 168) * (10 + i / 5)}).css({top: 720});
-    },
-    blockFormular: function () {
-        if ($(document).scrollTop() > 5000) {
-            $('#blockFormular').fadeIn('slow');
-            Animation.hideOthers();
-        } else {
-            $('#blockFormular').fadeOut('fast');
-            Animation.showOthers();
-        }
-    },
-    reset: function () {
-        if ($(document).scrollTop() === 0) scrollIndex = 50;
-    },
-    status: false,
-    hideOthers: function () {
-        for (let i of blocks) {
-            $('#block' + i).hide('fast');
-        }
-    },
-    showOthers: function () {
-        for (let i of blocks) {
-            $('#block' + i).show('fast');
-        }
+document.onkeydown = function(evt) {
+    evt = evt || window.event;
+    var isEscape = false;
+    if ("key" in evt) {
+        isEscape = (evt.key === "Escape" || evt.key === "Esc");
+    } else {
+        isEscape = (evt.keyCode === 27);
     }
-
+    if (isEscape) {
+        hideRegisterModal();
+    }
 };
 
 var Basic = {
@@ -139,4 +97,17 @@ var Form = {
 function test() {
     Form.submit();
     return false;
+}
+
+
+function showRegisterModal() {
+    $('#blockFormular').fadeIn('slow');
+    $('.curtain').css({width: '100%', height: '100%'});
+}
+
+function hideRegisterModal() {
+    $('#blockFormular').fadeOut(500);
+    setTimeout(() => {
+        $('.curtain').css({width: 0, height: 0});
+    }, 475);
 }

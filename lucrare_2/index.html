@@ -23,49 +23,102 @@
         </li>
     </ul>
 </nav>
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+    </ol>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img class="d-block w-100" src="assets/img/wallpaper-1.jpg" alt="First slide">
+        </div>
+        <div class="carousel-item">
+            <img class="d-block w-100" src="assets/img/wallpaper-2.jpg" alt="Second slide">
+        </div>
+        <div class="carousel-item">
+            <img class="d-block w-100" src="assets/img/wallpaper-3.jpg" alt="Third slide">
+        </div>
+        <div class="carousel-item">
+            <img class="d-block w-100" src="assets/img/wallpaper-4.jpg" alt="Third slide">
+        </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+
+<div class="separator">
+
+</div>
 <div class="body">
     <div class="container">
         <div class="row">
-            <div class="col-sm-2 border-dark" id="block11">
-                Acest Site
+            <!--//TODO A carousel on top and 2-3 blocks on bottom of page (responsive of course) -->
+
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Slide-ul №1</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Description</h6>
+                        <p class="card-text">O plaja singuratica ce e permanent spalata de apele marii pina nu va desparea.</p>
+                        <a href="#" class="card-link">Move to top</a>
+                    </div>
+                </div>
             </div>
-            <div class="col-sm-2 border-dark" id="block12">
-                Este un pic
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Slide-ul №2</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Description</h6>
+                        <p class="card-text">Sute si mii de fluturasi inscrisi pe niste lampi ce simbolizeaza natura trage catre caldura.</p>
+                        <a href="#" class="card-link">Move to top</a>
+                    </div>
+                </div>
             </div>
-            <div class="col-sm-2 border-dark" id="block13">
-                Attractiv
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Slide-ul №3</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Description</h6>
+                        <p class="card-text">O privire ce cuprinde toti oamenii impreuna.</p>
+                        <a href="#" class="card-link">Move to top</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Slide-ul №4</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Description</h6>
+                        <p class="card-text">Ceea ce iubesc absolut toti barbatii, dorinta miilor de oameni si realizarea celor mai puternici</p>
+                        <a href="#" class="card-link">Move to top</a>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="clearfix"></div>
         <div class="row">
-            <div class="col-sm-2 border-dark" id="block21">
-                Lucreaza dupa scroll
-            </div>
-            <div class="col-sm-2 border-dark" id="block22">
-                Si mai jos este ascunsa
-            </div>
-            <div class="col-sm-2 border-dark" id="block23">
-                o surpriza
+            <div class="col">
+                <div class="align-content-center cursor-pointer open-modal">
+                    <button class="btn btn-dark btn-large" onclick="showRegisterModal()"> open register form</button>
+                </div>
             </div>
         </div>
-        <div class="clearfix"></div>
-        <div class="row">
-            <div class="col-sm-2 border-dark" id="block31">
-                mai miscati
-            </div>
-            <div class="col-sm-2 border-dark" id="block32">
-                mai departe
-            </div>
-            <div class="col-sm-2 border-dark" id="block33">
-                si iata ca apare ...
-            </div>
-        </div>
-        <div class="clearfix"></div>
         <div class="container">
             <div class="row">
-                <div class="col-md-6" id="blockFormular">
+                <div class="curtain"></div>
+                <div class="col-md-6 align-content-center" id="blockFormular">
+                    <div class="cross-icon" onclick="hideRegisterModal()">
+                        <img src="assets/icons/close.svg" alt="close" />
+                    </div>
                     <div class="card">
-
                         <h5 class="card-header info-color white-text text-center py-4">
                             <strong style="color: blue;">Sign up</strong>
                         </h5>
