@@ -3,13 +3,18 @@ html {
 }
 
 body {
-    overflow: hidden
+    overflow-x: hidden
 }
 
 #carouselExampleIndicators {
-    overflow-y: hidden;
+    overflow-x: hidden;
 }
 
 .carousel-indicators > li {
     cursor: pointer;
 }
+
+.position-sticky {
+    top: 0;
+}
+
