@@ -10,7 +10,7 @@ require_once 'AbstractView.php';
 class AboutView extends AbstractView {
 
     public function show() {
-        require 'templates/index.html';
+        require 'templates/about.html';
         return null;
     }
 }

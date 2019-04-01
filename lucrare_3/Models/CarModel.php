@@ -7,7 +7,7 @@
  */
 
 require_once 'AbstractModel.php';
-class UserModel extends AbstractModel {
+class CarModel extends AbstractModel {
 
     public function __construct()
     {
@@ -16,7 +16,7 @@ class UserModel extends AbstractModel {
 
     public function executeQuery()
     {
-        $query = "select * from user";
+        $query = "select * from car";
         $stmt = self::$mysql->query($query);
         $users = [];
 

@@ -6,7 +6,7 @@
  * Time: 7:29 PM
  */
 
-class User {
+class Car {
     protected $id;
     protected $name;
     protected $email;

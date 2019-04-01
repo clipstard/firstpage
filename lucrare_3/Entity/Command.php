@@ -6,7 +6,7 @@
  * Time: 7:29 PM
  */
 
-class User {
+class Command {
     protected $id;
     protected $name;
     protected $email;

@@ -7,7 +7,6 @@
  */
 
 require_once 'AbstractController.php';
-
 /**
  * Class MainController
  */
@@ -24,14 +23,21 @@ class MainController extends AbstractController {
 
     public function execute()
     {
+
         switch ($this->route){
             case '':
             case '/':
                 (new IndexView())->show();
-            $results = (new UserModel())->executeQuery();
-            /** @var User $result */
-            foreach ($results as $result) {
-                    echo $result->getId()." " . $result->getName() . "<br />";
+                $results = (new UserModel())->executeQuery();
+
+            /** @var User $user */
+            foreach ($results as $user) {
+                    echo $user->getId() .
+                        " " . $user->getName() .
+                        " " . $user->getEmail() .
+                        " " . $user->getFirm() .
+                        " " . $user->getTara() .
+                        "<br />";
 
             }
                 break;
@@ -40,7 +46,7 @@ class MainController extends AbstractController {
                 break;
             case '/createUser':
                 var_dump($_POST);
-//                require '../Views/UserCreator.php';
+
                 break;
             default:
                 (new NotFoundView())->show();

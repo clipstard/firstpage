@@ -19,7 +19,8 @@ require_once 'Views/AboutView.php';
 
 
 // <!-- Models --> //
-
+//require_once 'Models/Database.php';
 require_once 'Models/UserModel.php';
 
 require_once 'Entity/User.php';
+
