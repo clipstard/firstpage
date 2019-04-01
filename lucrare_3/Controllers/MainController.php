@@ -38,6 +38,10 @@ class MainController extends AbstractController {
             case '/about':
                 (new AboutView())->show();
                 break;
+            case '/createUser':
+                var_dump($_POST);
+//                require '../Views/UserCreator.php';
+                break;
             default:
                 (new NotFoundView())->show();
                 break;

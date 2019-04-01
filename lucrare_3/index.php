@@ -1,14 +1,12 @@
 <?php
 
 require 'once_requirements.php';
-$request = $_SERVER['REDIRECT_URL'];
+require_once 'Views/templates/header.html';
+require 'Views/UserCreator.php';
+$request = $_SERVER['REQUEST_URI'];
 
 function rule ($request) {
     (new MainController($request))->execute();
 }
 
-$mysql = mysqli_connect('localhost', 'user', '', 'admin');
-if(!$mysql){
-    var_dump("Connot connect to db"); die;
-}
 rule($request);
