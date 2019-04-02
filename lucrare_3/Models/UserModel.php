@@ -31,4 +31,17 @@ class UserModel extends AbstractModel {
         }
         return $users;
     }
+
+
+    protected function composeQuery()
+    {
+        foreach ($this->filters as $key => $filter) {
+            if (is_int($key)) {
+                switch (true) {
+                    case strtolower($filter) === 'limit':
+                }
+            }
+        }
+    }
+
 }
