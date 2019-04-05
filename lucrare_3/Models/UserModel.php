@@ -66,7 +66,7 @@ class UserModel extends AbstractModel {
         }
 
         if (array_key_exists('order_by', $this->filters)) {
-            $query .= " order by ". $this->filters['order_by'];
+            $query .= " order by ". $this->filters['order_by'] . ' ' . ($this->filters['order_by_direction'] ? $this->filters['order_by_direction'] :'asc');
         }
         if (array_key_exists('limit', $this->filters)) {
             $query .= " limit " . $this->filters['limit'];
@@ -76,3 +76,9 @@ class UserModel extends AbstractModel {
         return $query;
     }
 }
+/* TODO
+   CITEVA liste top5 / top10 + buttons export csv/xlm
+1 -> lista de companii cu nr de success tests
+(filtru cu dropdown cu lista de companii -> subcompanii -> external companii)
+2 -> lista de useri cu nr de success tests/trainings
+ */
