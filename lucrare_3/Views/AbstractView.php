@@ -6,6 +6,11 @@
  * Time: 5:41 PM
  */
 
-abstract class AbstractView {
+abstract class AbstractView
+{
     abstract public function show();
+
+    protected function getTableHeader()
+    {
+    }
 }

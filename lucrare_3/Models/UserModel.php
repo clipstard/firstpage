@@ -16,7 +16,7 @@ class UserModel extends AbstractModel {
 
     public function executeQuery()
     {
-        $query = "select * from user";
+        $query = $this->composeQuery();
         $stmt = self::$mysql->query($query);
         $users = [];
 
@@ -24,7 +24,7 @@ class UserModel extends AbstractModel {
             $users[] = (new User)
                 ->setId($item['id'])
                 ->setName($item['name'])
-                ->setFirm($item['firm'])
+                ->setFirm($item['firma'])
                 ->setTara($item['tara'])
                 ->setEmail($item['email'])
             ;
@@ -32,16 +32,47 @@ class UserModel extends AbstractModel {
         return $users;
     }
 
-
+    /**
+     * @return string
+     */
     protected function composeQuery()
     {
-        foreach ($this->filters as $key => $filter) {
-            if (is_int($key)) {
-                switch (true) {
-                    case strtolower($filter) === 'limit':
+        $query = "SELECT * from user ";
+        $nonUniqueFilter = false;
+        $counts = 0;
+        if (array_key_exists('order_by', $this->filters)) $counts++;
+        if (array_key_exists('limit', $this->filters)) $counts++;
+        if (count($this->filters) > $counts) {
+            $query .= "where ";
+            if (array_key_exists('id', $this->filters)) {
+                $query .= "id = " . $this->filters['id'];
+            } else{
+                if (array_key_exists('name', $this->filters)) {
+                    $query .= 'name like "%' . $this->filters['name'] . '%"';
+                    $nonUniqueFilter = true;
+                }
+                if (array_key_exists('firm', $this->filters)) {
+                    if ($nonUniqueFilter) $query .= ' and where ';
+                    $query .= 'firm like "%' . $this->filters['firm'] . '%"';
+                    $nonUniqueFilter = true;
+                }
+
+                if (array_key_exists('tara', $this->filters)) {
+                    if ($nonUniqueFilter) $query .= ' and where ';
+                    $query .= 'tara like "%' . $this->filters['tara'] . '%"';
+                    $nonUniqueFilter = true;
                 }
             }
         }
-    }
 
+        if (array_key_exists('order_by', $this->filters)) {
+            $query .= " order by ". $this->filters['order_by'];
+        }
+        if (array_key_exists('limit', $this->filters)) {
+            $query .= " limit " . $this->filters['limit'];
+        }
+
+        $query .= ';';
+        return $query;
+    }
 }

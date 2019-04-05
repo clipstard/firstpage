@@ -11,7 +11,8 @@ require_once 'AbstractController.php';
 /**
  * Class ShowController
  */
-class ShowController extends AbstractController {
+class ShowController extends AbstractController
+{
 
     /**
      * ShowController constructor.
@@ -24,27 +25,15 @@ class ShowController extends AbstractController {
 
     public function execute()
     {
-
-        switch ($this->route){
-            case 'showUsers':
-                $results = (new UserModel())->executeQuery();
-
-                /** @var User $user */
-                foreach ($results as $user) {
-                    echo $user->getId() .
-                        " " . $user->getName() .
-                        " " . $user->getEmail() .
-                        " " . $user->getFirm() .
-                        " " . $user->getTara() .
-                        "<br />";
-
-                }
+        switch ($_SERVER['argv'][0]) {
+            case 'users':
+            (new UserView())->show();
                 break;
             case '/about':
                 (new AboutView())->show();
                 break;
             default:
-                (new IndexView())->show();
+                (new NotFoundView())->show();
                 break;
         }
     }

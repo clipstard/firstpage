@@ -7,10 +7,12 @@
  */
 
 require_once 'AbstractController.php';
+
 /**
  * Class MainController
  */
-class MainController extends AbstractController {
+class MainController extends AbstractController
+{
 
     /**
      * MainController constructor.
@@ -24,29 +26,16 @@ class MainController extends AbstractController {
     public function execute()
     {
 
-        switch ($this->route){
+        switch ($this->route) {
             case '':
             case '/':
                 (new IndexView())->show();
-                $results = (new UserModel())->executeQuery();
-
-            /** @var User $user */
-            foreach ($results as $user) {
-                    echo $user->getId() .
-                        " " . $user->getName() .
-                        " " . $user->getEmail() .
-                        " " . $user->getFirm() .
-                        " " . $user->getTara() .
-                        "<br />";
-
-            }
                 break;
             case '/about':
                 (new AboutView())->show();
                 break;
-            case '/createUser':
-                var_dump($_POST);
-
+            case '/users':
+                (new UserView())->show();
                 break;
             default:
                 (new NotFoundView())->show();
