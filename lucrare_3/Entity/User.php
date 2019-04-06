@@ -7,11 +7,11 @@
  */
 
 class User {
-    protected $id;
-    protected $name;
-    protected $email;
-    protected $firm;
-    protected $tara;
+    public $id;
+    public $name;
+    public $email;
+    public $firm;
+    public $tara;
 
     /**
      * @return mixed

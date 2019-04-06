@@ -1,5 +1,6 @@
 html {
     scroll-behavior: smooth;
+    overflow-y: scroll;
 }
 
 body {
@@ -18,3 +19,15 @@ body {
     top: 0;
 }
 
+.form-control {
+    width: 80%;
+    display: inline-flex;
+}
+
+.fa-search {
+    padding: 0 6px;
+}
+
+.btn:hover > .fa {
+    color: #005cbf;
+}

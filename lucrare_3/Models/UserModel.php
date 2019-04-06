@@ -51,14 +51,18 @@ class UserModel extends AbstractModel {
                     $query .= 'name like "%' . $this->filters['name'] . '%"';
                     $nonUniqueFilter = true;
                 }
+                if (array_key_exists('email', $this->filters)) {
+                    $query .= 'email like "%' . $this->filters['email'] . '%"';
+                    $nonUniqueFilter = true;
+                }
                 if (array_key_exists('firm', $this->filters)) {
-                    if ($nonUniqueFilter) $query .= ' and where ';
+                    if ($nonUniqueFilter) $query .= ' and ';
                     $query .= 'firm like "%' . $this->filters['firm'] . '%"';
                     $nonUniqueFilter = true;
                 }
 
                 if (array_key_exists('tara', $this->filters)) {
-                    if ($nonUniqueFilter) $query .= ' and where ';
+                    if ($nonUniqueFilter) $query .= ' and ';
                     $query .= 'tara like "%' . $this->filters['tara'] . '%"';
                     $nonUniqueFilter = true;
                 }

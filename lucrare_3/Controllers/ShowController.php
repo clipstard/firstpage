@@ -25,9 +25,10 @@ class ShowController extends AbstractController
 
     public function execute()
     {
-        switch ($_SERVER['argv'][0]) {
+        switch ($this->route) {
             case 'users':
-            (new UserView())->show();
+                (new UserView())
+                    ->show();
                 break;
             case '/about':
                 (new AboutView())->show();
