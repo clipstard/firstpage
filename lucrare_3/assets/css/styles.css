@@ -1,0 +1,20 @@
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    overflow-x: hidden
+}
+
+#carouselExampleIndicators {
+    overflow-x: hidden;
+}
+
+.carousel-indicators > li {
+    cursor: pointer;
+}
+
+.position-sticky {
+    top: 0;
+}
+
