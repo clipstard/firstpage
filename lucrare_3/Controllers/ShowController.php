@@ -35,11 +35,13 @@ class ShowController extends AbstractController
                     ->show();
                 break;
 
-            case '/about':
-                (new AboutView())->show();
+            case 'transactions':
+                (new UserView())
+                    ->show();
                 break;
             default:
-                (new NotFoundView())->show();
+                (new NotFoundView())
+                    ->show();
                 break;
         }
     }

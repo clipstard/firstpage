@@ -6,12 +6,22 @@
  * Time: 7:29 PM
  */
 
-class User {
+class User
+{
     public $id;
     public $name;
     public $email;
     public $firm;
     public $tara;
+
+    /**
+     * @return mixed
+     */
+    public function __toString()
+    {
+        // TODO: Implement __toString() method.
+        return $this->getId();
+    }
 
     /**
      * @return mixed

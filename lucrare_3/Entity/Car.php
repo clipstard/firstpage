@@ -6,7 +6,8 @@
  * Time: 7:29 PM
  */
 
-class Car {
+class Car
+{
     public $id;
     public $mark;
     public $anProducere;
@@ -14,6 +15,15 @@ class Car {
     public $parcurs;
     public $tara;
     public $pret;
+
+    /**
+     * @return mixed
+     */
+    public function __toString()
+    {
+        // TODO: Implement __toString() method.
+        return $this->getId();
+    }
 
     /**
      * @return mixed

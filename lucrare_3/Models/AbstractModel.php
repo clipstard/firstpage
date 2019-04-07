@@ -17,6 +17,7 @@ abstract class AbstractModel {
     }
 
     public abstract function executeQuery();
+    public abstract function createEntity(array $data);
 
     /**
      * @return array

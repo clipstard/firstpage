@@ -20,10 +20,10 @@ class CarModel extends AbstractModel
     {
         $query = $this->composeQuery();
         $stmt = self::$mysql->query($query);
-        $users = [];
+        $cars = [];
 
         while ($item = $stmt->fetch_assoc()) {
-            $users[] = (new Car)
+            $cars[] = (new Car)
                 ->setId($item['id'])
                 ->setTara($item['tara'])
                 ->setAnProducere($item['an_producere'])
@@ -32,7 +32,7 @@ class CarModel extends AbstractModel
                 ->setVolume($item['volume'])
                 ->setPret($item['pret']);
         }
-        return $users;
+        return $cars;
     }
 
     /**

@@ -34,9 +34,6 @@ class MainController extends AbstractController
             case '/about':
                 (new AboutView())->show();
                 break;
-            case '/users':
-                (new UserView())->show();
-                break;
             default:
                 (new NotFoundView())->show();
                 break;

@@ -14,6 +14,8 @@ switch ($action) {
         header('Content-Type: Application/json');
         echo json_encode($cars);
         break;
+    case 'transactionsTable':
+        break;
     default:
         break;
 }
