@@ -30,6 +30,11 @@ class ShowController extends AbstractController
                 (new UserView())
                     ->show();
                 break;
+            case 'cars':
+                (new CarView())
+                    ->show();
+                break;
+
             case '/about':
                 (new AboutView())->show();
                 break;

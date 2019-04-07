@@ -10,7 +10,7 @@ class UserView extends AbstractView
     public function show()
     {
         $userModel = new UserModel();
-        echo $this->getUsersTemplate();
+        $this->getUsersTemplate();
         return null;
     }
 

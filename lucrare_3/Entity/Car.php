@@ -7,11 +7,29 @@
  */
 
 class Car {
-    protected $id;
-    protected $name;
-    protected $email;
-    protected $firm;
-    protected $tara;
+    public $id;
+    public $mark;
+    public $anProducere;
+    public $volume;
+    public $parcurs;
+    public $tara;
+    public $pret;
+
+    /**
+     * @return mixed
+     */
+    public function getAnProducere()
+    {
+        return $this->anProducere;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPret()
+    {
+        return $this->pret;
+    }
 
     /**
      * @return mixed
@@ -24,9 +42,43 @@ class Car {
     /**
      * @return mixed
      */
-    public function getName()
+    public function getMark()
     {
-        return $this->name;
+        return $this->mark;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getParcurs()
+    {
+        return $this->parcurs;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTara()
+    {
+        return $this->tara;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getVolume()
+    {
+        return $this->volume;
+    }
+
+    /**
+     * @param $anProducere
+     * @return $this
+     */
+    public function setAnProducere($anProducere)
+    {
+        $this->anProducere = $anProducere;
+        return $this;
     }
 
     /**
@@ -40,56 +92,32 @@ class Car {
     }
 
     /**
-     * @param $name
+     * @param $mark
      * @return $this
      */
-    public function setName($name)
+    public function setMark($mark)
     {
-        $this->name = $name;
+        $this->mark = $mark;
         return $this;
     }
 
     /**
-     * @return mixed
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getFirm()
-    {
-        return $this->firm;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getTara()
-    {
-        return $this->tara;
-    }
-
-    /**
-     * @param $email
+     * @param $pret
      * @return $this
      */
-    public function setEmail($email)
+    public function setPret($pret)
     {
-        $this->email = $email;
+        $this->pret = $pret;
         return $this;
     }
 
     /**
-     * @param $firm
+     * @param $parcurs
      * @return $this
      */
-    public function setFirm($firm)
+    public function setParcurs($parcurs)
     {
-        $this->firm = $firm;
+        $this->parcurs = $parcurs;
         return $this;
     }
 
@@ -100,6 +128,16 @@ class Car {
     public function setTara($tara)
     {
         $this->tara = $tara;
+        return $this;
+    }
+
+    /**
+     * @param $volume
+     * @return $this
+     */
+    public function setVolume($volume)
+    {
+        $this->volume = $volume;
         return $this;
     }
 }

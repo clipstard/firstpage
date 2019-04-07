@@ -1,5 +1,5 @@
 function submitSearch() {
-    let data = {action: 'usersSearch'};
+    let data = {action: 'searchUsers'};
     let id = $('#user_id').val();
     let name = $('#user_name').val();
     let email = $('#user_email').val();
@@ -84,7 +84,7 @@ function composeTable() {
         '<td><input class="form-control" id="user_tara_create" name="user_tara_create" /></td> ' +
         '<td>' +
         '<button type="button" onclick="clearCreate()" class="btn btn-light"><i class="fa fa-minus-circle   "></i></button>' +
-        '<button type="button" onclick="createUser()" class="btn btn-light"><i class="fa fa-user-plus"></i></button>' +
+        '<button type="button" onclick="createUser()" class="btn btn-light"><i class="fa fa-plus"></i></button>' +
         '</td>' +
         '</tr>' +
         '<tbody id="user-table-body">' +
