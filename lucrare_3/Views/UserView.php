@@ -25,7 +25,7 @@ class UserView extends AbstractView
 
     public function getUsersTemplate()
     {
-        echo "<div id='usersTable' style='width:100%;'></div>";
+        echo "<p id='usersTable' style='width:100%;'></p>";
         echo "<script src='../assets/js/userTable.js'></script>";
     }
 }

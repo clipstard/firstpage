@@ -1,6 +1,5 @@
 html {
     scroll-behavior: smooth;
-    overflow-y: scroll;
 }
 
 body {
@@ -30,4 +29,33 @@ body {
 
 .btn:hover > .fa {
     color: #005cbf;
+}
+.fa-user-minus {
+    color: red;
+}
+
+.btn:hover > .fa-user-minus {
+    color: #FF7911;
+}
+
+.separator {
+    height: 50px;
+    width: 100%;
+}
+
+.container {
+    box-shadow: 0 0 61px -12px rgba(0, 0, 0, 0.68);
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
+.box {
+    background-color: rgba(128, 128, 128, 0.13);
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
+
+.row {
+    padding: 10px;
 }

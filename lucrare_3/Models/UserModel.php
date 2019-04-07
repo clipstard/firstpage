@@ -7,7 +7,9 @@
  */
 
 require_once 'AbstractModel.php';
-class UserModel extends AbstractModel {
+
+class UserModel extends AbstractModel
+{
 
     public function __construct()
     {
@@ -26,8 +28,7 @@ class UserModel extends AbstractModel {
                 ->setName($item['name'])
                 ->setFirm($item['firma'])
                 ->setTara($item['tara'])
-                ->setEmail($item['email'])
-            ;
+                ->setEmail($item['email']);
         }
         return $users;
     }
@@ -46,7 +47,7 @@ class UserModel extends AbstractModel {
             $query .= "where ";
             if (array_key_exists('id', $this->filters)) {
                 $query .= "id = " . $this->filters['id'];
-            } else{
+            } else {
                 if (array_key_exists('name', $this->filters)) {
                     $query .= 'name like "%' . $this->filters['name'] . '%"';
                     $nonUniqueFilter = true;
@@ -70,7 +71,7 @@ class UserModel extends AbstractModel {
         }
 
         if (array_key_exists('order_by', $this->filters)) {
-            $query .= " order by ". $this->filters['order_by'] . ' ' . ($this->filters['order_by_direction'] ? $this->filters['order_by_direction'] :'asc');
+            $query .= " order by " . $this->filters['order_by'] . ' ' . ($this->filters['order_by_direction'] ? $this->filters['order_by_direction'] : 'asc');
         }
         if (array_key_exists('limit', $this->filters)) {
             $query .= " limit " . $this->filters['limit'];
@@ -78,6 +79,58 @@ class UserModel extends AbstractModel {
 
         $query .= ';';
         return $query;
+    }
+
+    public function createEntity(array $data)
+    {
+        $user = new User();
+        $user->setEmail($data['email'])
+            ->setName($data['name'])
+            ->setFirm($data['firma'])
+            ->setTara($data['tara']);
+
+        return $user;
+    }
+
+    public function flushUser(User $user)
+    {
+        $query = "INSERT INTO user(name, email, firma, tara) values(" . sprintf("'%s', '%s', '%s', '%s'", $user->getName(), $user->getEmail(), $user->getFirm(), $user->getTara()) . ");";
+        if (self::$mysql->query($query)) {
+            return true;
+        }
+        return false;
+    }
+
+    public function updateUserSet(User $user)
+    {
+        $query = "UPDATE user SET name = '" . $user->getName() . "', email = '" . $user->getEmail() . "', firma = '". $user->getFirm() . "', tara = '" . $user->getTara() . "' where id = " . $user->getId();
+        if (self::$mysql->query($query)) {
+            return true;
+        }
+        return false;
+    }
+
+    public function updateUser(array $data)
+    {
+        $this->setFilters(['id' => $data['id']]);
+        /** @var User $user */
+        $user = $this->executeQuery()[0];
+        if (!$user) return false;
+        $user->setName($data['name'])
+            ->setTara($data['tara'])
+            ->setFirm($data['firma'])
+            ->setEmail($data['email'])
+            ;
+        return $this->updateUserSet($user);
+    }
+
+    public function deleteUser(array $data)
+    {
+        $query = "DELETE FROM user where id = " . $data['id'];
+        if (self::$mysql->query($query)) {
+            return true;
+        }
+        return false;
     }
 }
 /* TODO
