@@ -38,3 +38,5 @@ function getResource($request)
 }
 
 rule($request);
+
+require_once 'Views/templates/footer.html';

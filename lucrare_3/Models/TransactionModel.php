@@ -22,11 +22,26 @@ class TransactionModel extends AbstractModel
         $stmt = self::$mysql->query($query);
         $transactions = [];
 
+        if (!$stmt) return [false];
         while ($item = $stmt->fetch_assoc()) {
+            $user = new User();
+            $user->setId($item['user_id'])
+                ->setName($item['user_name'])
+                ->setTara($item['user_tara'])
+                ->setEmail($item['user_tara'])
+                ->setFirm($item['user_firma']);
+            $car = new Car();
+            $car->setId($item['car_id'])
+                ->setTara($item['car_tara'])
+                ->setPret($item['car_pret'])
+                ->setVolume($item['car_volume'])
+                ->setAnProducere($item['car_an_producere'])
+                ->setParcurs($item['car_parcurs'])
+                ->setMark($item['car_mark']);
             $transactions[] = (new Transaction())
                 ->setId($item['id'])
-                ->setUser($item['user_id'])
-                ->setCar($item['car_id'])
+                ->setUser($user)
+                ->setCar($car)
                 ->setData($item['data'])
                 ->setClosed($item['closed']);
         }
@@ -38,7 +53,10 @@ class TransactionModel extends AbstractModel
      */
     protected function composeQuery()
     {
-        $query = "SELECT * from transaction ";
+        $query = "SELECT t.id, t.data, t.closed," .
+            " u.id as user_id, u.name as user_name, u.firma as user_firma, u.email as user_email, u.tara as user_tara," .
+            " c.id as car_id, c.mark as car_mark, c.an_producere as car_an_producere, c.volume as car_volume, c.parcurs as car_parcurs, c.tara as car_tara, c.pret as car_pret" .
+            " from transaction t join user u on u.id = t.user_id join car c on c.id = t.car_id ";
         $nonUniqueFilter = false;
         $counts = 0;
         if (array_key_exists('order_by', $this->filters)) $counts++;
@@ -46,33 +64,30 @@ class TransactionModel extends AbstractModel
         if (count($this->filters) > $counts) {
             $query .= "where ";
             if (array_key_exists('id', $this->filters)) {
-                $query .= "id = " . $this->filters['id'];
+                $query .= "t.id = '" . $this->filters['id'] . "'";
             } else {
-                if (array_key_exists('user_id', $this->filters)) {
-                    $query .= 'user_id = "' . $this->filters['user_id'] . '"';
+                if (array_key_exists('user_name', $this->filters)) {
+                    $query .= 'u.name like "%' . $this->filters['user_name'] . '%"';
                     $nonUniqueFilter = true;
                 }
-                if (array_key_exists('car_id', $this->filters)) {
-                    $query .= 'car_id = "' . $this->filters['car_id'] . '"';
+                if (array_key_exists('car_mark', $this->filters)) {
+                    $query .= 'c.mark like "%' . $this->filters['car_mark'] . '%"';
                     $nonUniqueFilter = true;
                 }
                 if (array_key_exists('data', $this->filters)) {
                     if ($nonUniqueFilter) $query .= ' and ';
-                    $query .= 'data like "%' . $this->filters['data'] . '%"';
+                    $query .= 't.data like "%' . $this->filters['data'] . '%"';
                     $nonUniqueFilter = true;
                 }
 
                 if (array_key_exists('closed', $this->filters)) {
                     if ($nonUniqueFilter) $query .= ' and ';
-                    $query .= 'closed = "' . $this->filters['closed'] . '"';
+                    $query .= 't.closed = "' . $this->filters['closed'] . '"';
                     $nonUniqueFilter = true;
                 }
             }
         }
-
-        if (array_key_exists('order_by', $this->filters)) {
-            $query .= " order by " . $this->filters['order_by'] . ' ' . ($this->filters['order_by_direction'] ? $this->filters['order_by_direction'] : 'asc');
-        }
+        $query .= " order by " . ($this->filters['order_by'] ? $this->filters['order_by'] : 't.id') . ' ' . ($this->filters['order_by_direction'] ? $this->filters['order_by_direction'] : 'asc');
         if (array_key_exists('limit', $this->filters)) {
             $query .= " limit " . $this->filters['limit'];
         }
@@ -84,17 +99,21 @@ class TransactionModel extends AbstractModel
     public function createEntity(array $data)
     {
         $transaction = new Transaction();
-        $transaction->setCar($data['car_id'])
-            ->setUser($data['user_id'])
-            ->setClosed($data['closed'])
-            ->setData($data['data']);
+        $user = (new UserModel())->setFilters(['id' => $data['user_id']])->executeQuery()[0];
+        if (!$user) echo json_encode(['status' => 'error', 'message' => 'User ' . $data['user_id'] . ' not found!', 'code' => 400]);
+        $car = (new CarModel())->setFilters(['id' => $data['car_id']])->executeQuery()[0];
+        if (!$car) echo json_encode(['status' => 'error', 'message' => 'Car ' . $data['car_id'] . ' not found!', 'code' => 400]);
+        $transaction->setCar($car)
+            ->setUser($user)
+            ->setClosed(($data['closed'] === '0') ? 0 : 1)
+            ->setData("" . date(DateConstant::$dateFormat, date_timestamp_get(new DateTime())));
 
         return $transaction;
     }
 
     public function flushTransaction(Transaction $transaction)
     {
-        $query = "INSERT INTO transaction (user_id, car_id, data, closed) values(" . sprintf("'%s', '%s', '%s', '%s'", $transaction->getUser(), $transaction->getCar(), date(DateConstant::$dateFormat, date_timestamp_get(new DateTime($transaction->getData()))), $transaction->getClosed()) . ");";
+        $query = "INSERT INTO transaction (user_id, car_id, data, closed) values(" . sprintf("'%s', '%s', '%s', '%s'", $transaction->getUser()->getId(), $transaction->getCar()->getId(), $transaction->getData(), $transaction->getClosed()) . ");";
         if (self::$mysql->query($query)) {
             return true;
         }
@@ -103,7 +122,7 @@ class TransactionModel extends AbstractModel
 
     public function updateTransactionSet(Transaction $transaction)
     {
-        $query = "UPDATE transaction SET user_id = '" . $transaction->getUser() . "', car_id = '" . $transaction->getCar() . "', data = '" . date(DateConstant::$dateFormat, date_timestamp_get(new DateTime($transaction->getData()))) . "', closed = '" . "' where id = '" . $transaction->getId() . "';";
+        $query = "UPDATE transaction SET user_id = '" . $transaction->getUser()->getId() . "', car_id = '" . $transaction->getCar()->getId() . "', data = '" . date(DateConstant::$dateFormat, date_timestamp_get(new DateTime($transaction->getData()))) . "', closed = '" . $transaction->getClosed() . "' where id = '" . $transaction->getId() . "';";
         if (self::$mysql->query($query)) {
             return true;
         }
@@ -116,10 +135,8 @@ class TransactionModel extends AbstractModel
         /** @var Transaction $transaction */
         $transaction = $this->executeQuery()[0];
         if (!$transaction) return false;
-        $transaction->setData($data['data'])
-            ->setClosed($data['closed'])
-            ->setUser($data['user_id'])
-            ->setCar($data['car_id']);
+        $transaction->setClosed((int)$data['closed']);
+
         return $this->updateTransactionSet($transaction);
     }
 

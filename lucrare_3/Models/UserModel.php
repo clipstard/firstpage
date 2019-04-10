@@ -46,7 +46,7 @@ class UserModel extends AbstractModel
         if (count($this->filters) > $counts) {
             $query .= "where ";
             if (array_key_exists('id', $this->filters)) {
-                $query .= "id = " . $this->filters['id'];
+                $query .= "id = '" . $this->filters['id'] . "'";
             } else {
                 if (array_key_exists('name', $this->filters)) {
                     $query .= 'name like "%' . $this->filters['name'] . '%"';

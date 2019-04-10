@@ -15,6 +15,10 @@ switch ($action) {
         echo json_encode($cars);
         break;
     case 'transactionsTable':
+        $transactionModel = new TransactionModel();
+        $transactions = $transactionModel->executeQuery();
+        header('Content-Type: Application/json');
+        echo json_encode($transactions);
         break;
     default:
         break;

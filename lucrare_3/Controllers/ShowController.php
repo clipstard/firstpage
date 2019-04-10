@@ -34,9 +34,8 @@ class ShowController extends AbstractController
                 (new CarView())
                     ->show();
                 break;
-
             case 'transactions':
-                (new UserView())
+                (new TransactionView())
                     ->show();
                 break;
             default:

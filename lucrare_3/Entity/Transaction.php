@@ -69,7 +69,7 @@ class Transaction
      * @param Car|int $car
      * @return $this
      */
-    public function setCar($car)
+    public function setCar(Car $car)
     {
         $this->car = $car;
         return $this;
@@ -109,7 +109,7 @@ class Transaction
      * @param User|int $user
      * @return $this
      */
-    public function setUser($user)
+    public function setUser(User $user)
     {
         $this->user = $user;
         return $this;

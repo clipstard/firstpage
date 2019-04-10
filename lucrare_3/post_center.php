@@ -57,6 +57,33 @@ switch ($action) {
         $response = ($deleteResult) ? ['code' => 200, 'status' => 'success'] : ['code' => 400, 'status' => 'error'];
         echo json_encode($response);
         break;
+    case 'searchTransactions':
+        $transactionModel = new TransactionModel();
+        $transactionModel->setFilters($_POST);
+        $transaction = $transactionModel->executeQuery();
+        header('Content-Type: Application/json');
+        echo json_encode($transaction);
+        break;
+    case 'createTransaction':
+        $transactionModel = new TransactionModel();
+        $response = [];
+        ($transactionModel->flushTransaction($transactionModel->createEntity($_POST))) ? $response = ['code' => 201, 'status' => 'success'] : $response = ['code' => 400, 'status' => 'error'];
+        header('Content-Type: Application/json');
+        echo json_encode($response);
+        break;
+    case 'updateTransaction':
+        $transactionModel = new TransactionModel();
+        $updateResult = $transactionModel->updateTransaction($_POST);
+        $response = [];
+        ($updateResult) ? $response = ['code' => 200, 'status' => 'success'] : $response = ['code' => 400, 'status' => 'error'];
+        echo json_encode($response);
+        break;
+    case 'deleteTransaction':
+        $transactionModel = new TransactionModel();
+        $deleteResult = $transactionModel->deleteTransaction($_POST);
+        $response = ($deleteResult) ? ['code' => 200, 'status' => 'success'] : ['code' => 400, 'status' => 'error'];
+        echo json_encode($response);
+        break;
     default:
         break;
 }

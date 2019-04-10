@@ -6,6 +6,10 @@
  * Time: 6:09 PM
  */
 
+// <!-- Entities --> //
+require_once 'Entity/User.php';
+require_once 'Entity/Car.php';
+require_once 'Entity/Transaction.php';
 
 // <!-- Controllers --> //
 require_once 'Controllers/MainController.php';
@@ -26,12 +30,7 @@ require_once 'Views/TransactionView.php';
 //require_once 'Models/Database.php';
 require_once 'Models/UserModel.php';
 require_once 'Models/CarModel.php';
-require_once  'Models/TransactionModel.php';
-
-// <!-- Entities --> //
-require_once 'Entity/User.php';
-require_once 'Entity/Car.php';
-require_once 'Entity/Transaction.php';
+require_once 'Models/TransactionModel.php';
 
 
 // <!-- Migrations --> //
