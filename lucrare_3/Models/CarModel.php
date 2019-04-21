@@ -126,9 +126,9 @@ class CarModel extends AbstractModel
         return false;
     }
 
-    public function updateCar(array $data)
+    public function updateCar($id, array $data)
     {
-        $this->setFilters(['id' => $data['id']]);
+        $this->setFilters(['id' => $id]);
         /** @var Car $car */
         $car = $this->executeQuery()[0];
         if (!$car) return false;

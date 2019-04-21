@@ -18,7 +18,7 @@ class ShowController extends AbstractController
      * ShowController constructor.
      * @param $route
      */
-    public function __construct($route = null)
+    public function __construct($route = null, $id = null)
     {
         parent::__construct($route);
     }

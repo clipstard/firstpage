@@ -110,9 +110,9 @@ class UserModel extends AbstractModel
         return false;
     }
 
-    public function updateUser(array $data)
+    public function updateUser($id, array $data)
     {
-        $this->setFilters(['id' => $data['id']]);
+        $this->setFilters(['id' => $id]);
         /** @var User $user */
         $user = $this->executeQuery()[0];
         if (!$user) return false;
