@@ -129,9 +129,9 @@ class TransactionModel extends AbstractModel
         return false;
     }
 
-    public function updateTransaction(array $data)
+    public function updateTransaction($id, array $data)
     {
-        $this->setFilters(['id' => $data['id']]);
+        $this->setFilters(['id' => $id]);
         /** @var Transaction $transaction */
         $transaction = $this->executeQuery()[0];
         if (!$transaction) return false;

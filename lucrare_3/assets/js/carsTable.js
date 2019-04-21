@@ -1,5 +1,5 @@
 function submitSearch() {
-    let data = {action: 'searchCars'};
+    let data = {};
     let id = $('#car_id').val();
     let mark = $('#car_mark').val();
     let an_producere = $('#car_an_producere').val();
@@ -20,9 +20,9 @@ function submitSearch() {
     let post = id || mark || an_producere || volume || tara || parcurs || pret;
     if (post) {
         $.ajax({
-            url: "post_center.php",
+            url: "/api/cars/",
             data: data,
-            method: "POST",
+            method: "GET",
             success: function (data) {
                 composeRows(data);
             }
@@ -34,10 +34,9 @@ function submitSearch() {
 
 function fillStandardTable() {
     $.ajax({
-        url: 'get_center.php',
+        url: '/api/cars/',
         method: 'GET',
         headers: 'Content-type: application/json',
-        data: {action: 'carsTable'},
         success: function (data) {
             composeRows(data);
         }
@@ -143,9 +142,7 @@ function composeRows(data) {
             '</td>' +
             '</tr>';
     }
-    $('#car-table-body').html(
-        result
-    );
+    $('#car-table-body').html(result);
 }
 
 function clearForm() {
@@ -172,7 +169,7 @@ function clearCreate() {
 function createCar() {
     $('#car_name_create').removeClass('has-error');
     $('#car_email_create').removeClass('has-error');
-    let data = {action: 'createCar'};
+    let data = {};
     let mark = $('#car_mark_create').val();
     let an_producere = $('#car_an_producere_create').val();
     let volume = $('#car_volume_create').val();
@@ -188,8 +185,8 @@ function createCar() {
     if (pret) data = {...data, pret};
 
     $.ajax({
-        url: 'post_center.php',
-        method: "POST",
+        url: '/api/cars/',
+        method: 'POST',
         data: data,
         success: function (data) {
             submitSearch();
@@ -236,7 +233,6 @@ function editCar(carId) {
         '<input type="text" id="car_modal_pret" value="' + pret + '" class="form-control float-right" />' +
         '</form>'
     );
-    console.log(data);
 }
 
 function updateCar() {
@@ -249,8 +245,6 @@ function updateCar() {
     let id = $('#exampleModalSecretArea').html();
 
     let data = {
-        action: 'updateCar',
-        id: id,
         mark: mark,
         an_producere: an_producere,
         volume: volume,
@@ -259,9 +253,10 @@ function updateCar() {
         pret: pret
     };
 
+    if (!id) return;
     $.ajax({
-        url: 'post_center.php',
-        method: "POST",
+        url: '/api/cars/' + id,
+        method: 'PUT',
         data: data,
         success: function (data) {
             submitSearch();
@@ -270,14 +265,10 @@ function updateCar() {
 }
 
 function deleteCar(carId) {
-    let data = {
-        action: 'deleteCar',
-        id: carId
-    };
+    if (!carId) return;
     $.ajax({
-        url: 'post_center.php',
-        method: "POST",
-        data: data,
+        url: '/api/cars/' + carId,
+        method: 'DELETE',
         success: function () {
             if (!$('#car_' + carId + '_row').hasClass('deleted')) {
                 $('#car_' + carId + '_row').addClass('deleted');

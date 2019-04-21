@@ -13,11 +13,12 @@ function submitSearch() {
     if (tara) data = {...data, tara};
 
     let post = id || name || email || firma || tara;
+    let url = (id) ? "/api/users/" + id : "/api/users/";
     if (post) {
         $.ajax({
-            url: "post_center.php",
+            url: url,
             data: data,
-            method: "POST",
+            method: "GET",
             success: function (data) {
                 composeRows(data);
             }
@@ -29,10 +30,9 @@ function submitSearch() {
 
 function fillStandardTable() {
     $.ajax({
-        url: 'get_center.php',
+        url: '/api/users/',
         method: 'GET',
         headers: 'Content-type: application/json',
-        data: {action: 'usersTable'},
         success: function (data) {
             composeRows(data);
         }
@@ -170,7 +170,7 @@ function createUser() {
     if (firma) data = {...data, firma};
     if (tara) data = {...data, tara};
     $.ajax({
-        url: 'post_center.php',
+        url: '/api/users/',
         method: "POST",
         data: data,
         success: function (data) {
@@ -216,17 +216,16 @@ function updateUser() {
     let id = $('#exampleModalSecretArea').html();
 
     let data = {
-        action: 'updateUser',
-        id: id,
         name: name,
         email: email,
         firma: firma,
         tara: tara
     };
 
+    if (!id) return;
     $.ajax({
-        url: 'post_center.php',
-        method: "POST",
+        url: '/api/users/' + id,
+        method: "PUT",
         data: data,
         success: function (data) {
             submitSearch();
@@ -240,8 +239,8 @@ function deleteUser(userId) {
         id: userId
     };
     $.ajax({
-       url: 'post_center.php',
-       method: "POST",
+       url: '/api/users/' + userId,
+       method: "DELETE",
        data: data,
        success: function() {
            if (!$('#user_' + userId + '_row').hasClass('deleted')) {

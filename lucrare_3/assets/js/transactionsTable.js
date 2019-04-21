@@ -15,9 +15,9 @@ function submitSearch() {
     let post = id || user_name || car_mark || closed;
     if (post) {
         $.ajax({
-            url: "post_center.php",
+            url: "/api/transactions/",
             data: data,
-            method: "POST",
+            method: "GET",
             success: function (data) {
                 composeRows(data);
             }
@@ -29,10 +29,9 @@ function submitSearch() {
 
 function fillStandardTable() {
     $.ajax({
-        url: 'get_center.php',
+        url: '/api/transactions/',
         method: 'GET',
         headers: 'Content-type: application/json',
-        data: {action: 'transactionsTable'},
         success: function (data) {
             composeRows(data);
         }
@@ -52,10 +51,9 @@ $(document).ready(function () {
 
 function getUsers() {
     $.ajax({
-        url: 'get_center.php',
+        url: '/api/users/',
         method: 'GET',
         headers: 'Content-type: application/json',
-        data: {action: 'usersTable'},
         success: function (data) {
             let result = '<option value=""></option>';
            for (let i =0; i< data.length; i++) {
@@ -68,10 +66,9 @@ function getUsers() {
 
 function getCars() {
     $.ajax({
-        url: 'get_center.php',
+        url: '/api/cars/',
         method: 'GET',
         headers: 'Content-type: application/json',
-        data: {action: 'carsTable'},
         success: function (data) {
             let result = '<option value=""></option>';
             for (let i =0; i< data.length; i++) {
@@ -196,7 +193,7 @@ function clearCreate() {
 }
 
 function createTransaction() {
-    let data = {action: 'createTransaction'};
+    let data = {};
     let userId = $('#transaction_users').val();
     let carId = $('#transaction_cars').val();
     let closed = ($('#transaction_closed_create').is(':checked')) ? '1' : '0';
@@ -205,8 +202,8 @@ function createTransaction() {
     data = {...data, user_id: userId, car_id: carId};
     if(closed) data = {...data, closed: closed};
     $.ajax({
-        url: 'post_center.php',
-        method: "POST",
+        url: '/api/transactions/',
+        method: 'POST',
         data: data,
         success: function (data) {
             submitSearch();
@@ -235,15 +232,14 @@ function updateTransaction() {
     let closed = ($('#transaction_modal_closed').is(':checked') ? '1' : '0');
     let id = $('#exampleModalSecretArea').html();
 
+    if (!id) return;
     let data = {
-        action: 'updateTransaction',
-        id: id,
         closed: closed
     };
 
     $.ajax({
-        url: 'post_center.php',
-        method: "POST",
+        url: '/api/transactions/' + id,
+        method: 'PUT',
         data: data,
         success: function (data) {
             submitSearch();
@@ -252,14 +248,10 @@ function updateTransaction() {
 }
 
 function deleteTransaction(transactionId) {
-    let data = {
-        action: 'deleteTransaction',
-        id: transactionId
-    };
+    if (!transactionId) return;
     $.ajax({
-        url: 'post_center.php',
-        method: "POST",
-        data: data,
+        url: '/api/transactions/' + transactionId,
+        method: 'DELETE',
         success: function () {
             if (!$('#transaction_' + transactionId + '_row').hasClass('deleted')) {
                 $('#transaction_' + transactionId + '_row').addClass('deleted');
